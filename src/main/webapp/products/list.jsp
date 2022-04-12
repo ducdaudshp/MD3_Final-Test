@@ -16,6 +16,7 @@
 <h1>Product</h1>
 <h2>
     <a href="/ProductsServlet?action=create">Create New Product</a>
+
 </h2>
 </center>
 </center>
@@ -39,8 +40,8 @@
                 <td><c:out value="${product.getColor()}"/></td>
                 <td><c:out value="${product.getDescripsion()}"/></td>
                 <td>
-                    <a href="/ProductsServlet?action=edit&id=${product.id}">Edit</a>
-                    <a href="/ProductsServlet?action=delete&id=${product.id}">Delete</a>
+                    <a href="/ProductsServlet?action=edit&id=${product.getId()}">Edit</a>
+                    <a href="/ProductsServlet?action=delete&id=${product.getId()}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

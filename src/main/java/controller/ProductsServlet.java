@@ -51,7 +51,13 @@ public class ProductsServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        productsDAO.delete(id);
+        List<Products> productsList = productsDAO.findAll();
+        request.setAttribute("listProduct", productsList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/list.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
@@ -94,7 +100,17 @@ public class ProductsServlet extends HttpServlet {
 
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response){
-
+    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        double price = Double.valueOf(request.getParameter("price"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String color = request.getParameter("color");
+        String descripsion = request.getParameter("descripsion");
+        int id_category = Integer.parseInt(request.getParameter("id_category"));
+        Category category = categoryDAO.findById(id_category);
+        Products products = new Products(name,price,quantity,color,descripsion,category);
+        productsDAO.update(products);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/edit.jsp");
+        dispatcher.forward(request,response);
     }
 }
