@@ -1,6 +1,8 @@
 package controller;
 
+import DAO.category.CategoryDAO;
 import DAO.products.ProductsDAO;
+import model.Category;
 import model.Products;
 
 import javax.servlet.*;
@@ -17,6 +19,7 @@ public class ProductsServlet extends HttpServlet {
     public void init() {
         productsDAO = new ProductsDAO();
     }
+    private CategoryDAO categoryDAO = new CategoryDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,7 +78,20 @@ public class ProductsServlet extends HttpServlet {
         }
     }
 
-    private void save(HttpServletRequest request, HttpServletResponse response) {
+    private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        double price = Double.valueOf(request.getParameter("price"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String color = request.getParameter("color");
+        String descripsion = request.getParameter("descripsion");
+        int id_category = Integer.parseInt(request.getParameter("id_category"));
+        Category category = categoryDAO.findById(id_category);
+        Products products = new Products(name,price,quantity,color,descripsion,category);
+        productsDAO.save(products);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("products/create.jsp");
+        dispatcher.forward(request,response);
+
+
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response){

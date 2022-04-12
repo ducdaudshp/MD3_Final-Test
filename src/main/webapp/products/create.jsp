@@ -50,9 +50,9 @@
                 </td>
             </tr>
             <tr>
-                <th>Product Description</th>
+                <th>Product Descripsion</th>
                 <td>
-                    <input type="text" name="description" id="description" size="45"/>
+                    <input type="text" name="descripsion" id="descripsion" size="45"/>
                 </td>
             </tr>
             <tr>
